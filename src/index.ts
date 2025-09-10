@@ -1,13 +1,16 @@
 import Translator from './translator';
+import * as readline from 'readline';
 
 const translator = new Translator();
 
-// Example command-line interface setup
-const runTranslator = async () => {
-    const textToTranslate = "Hello, how are you?"; // Example input
-    const translatedText = translator.translate(textToTranslate);
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+rl.question('Enter text to translate: ', async (textToTranslate) => {
+    const translatedText = await translator.translate(textToTranslate);
     console.log(`Original: ${textToTranslate}`);
     console.log(`Translated: ${translatedText}`);
-};
-
-runTranslator();
+    rl.close();
+});
